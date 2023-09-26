@@ -1,17 +1,37 @@
 // Import the Parser class from the specified path
 const { Parser } = require('../src/Parser');
+const assert = require('assert');
 
-// Create a new instance of the Parser class
+/**
+ * List of tests
+ */
+const tests = [require('./literals-test.js')];
+
 const parser = new Parser();
 
-const program = 
-	`/**
-	  * Documentation comment;
-	  */ 
-	'hello world!'
-	42`;
+/**
+ * For manual tests
+ */
+function exec() {
+	const program = 
+		`/**
+		* Documentation comment;
+		*/ 
+		'hello world!'
+		// number
+		42`;
+	const ast = parser.parse(program);
+	console.log(JSON.stringify(ast, null, 2));
+}
+/** 
+ * test function 
+ */
+function test(program, expected) {
+	const ast = parser.parse(program);
+	assert.deepEqual(ast, expected)
+}
 
-const ast = parser.parse(program);
+// Run all tests
 
-console.log(JSON.stringify(ast, null, 2));
-
+tests.forEach(testRun => testRun(test));
+console.log("All assertions passed")

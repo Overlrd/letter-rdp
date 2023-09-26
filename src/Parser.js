@@ -28,7 +28,7 @@ class Parser {
 	 */
 	Program() {
 		return {
-			type : 'program',
+			type : 'Program',
 			body : this.Literal()
 		}
 	}
@@ -62,7 +62,7 @@ class Parser {
 		// eat will consume the current token an advance the tokenizer to the next token
 		const token = this._eat('STRING');
 		return {
-			type: 'StingLiteral',
+			type: 'StringLiteral',
 			value: token.value.slice(1, -1),
 		};
 	}
