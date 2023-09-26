@@ -42,6 +42,7 @@ class Parser {
 			case 'NUMBER': return this.NumericLiteral();
 			case 'STRING': return this.StringLiteral();
 		}
+		throw new SyntaxError(`Literal: unexpected literal production`);
 	}
 	/** NummericLiteral
 	* 	: Number
@@ -54,6 +55,9 @@ class Parser {
 			value: Number(token.value),
 		}
 	}
+	/** NummericLiteral
+	* 	: Number
+	*/
 	StringLiteral() {
 		// eat will consume the current token an advance the tokenizer to the next token
 		const token = this._eat('STRING');
@@ -62,7 +66,9 @@ class Parser {
 			value: token.value.slice(1, -1),
 		};
 	}
-
+	/** 
+	* Expects a token of a given type
+	*/
 	_eat(tokenType) {
 		const token = this._lookahead;
 
@@ -76,9 +82,9 @@ class Parser {
 				`Unexpected token "${token.value}", expected "${tokenType}" ` 
 			);
 		}
-
 		// Advance to the next token
 		this._lookahead = this._tokenizer.getNextToken();
+		// return the current token
 		return token;
 	}
 }
