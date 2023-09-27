@@ -20,7 +20,7 @@ const parser = new Parser();
  */
 function exec() {
 	const program = 
-		` 42 + 23 - 17;	`;
+		` (2 + 2);	`;
 	const ast = parser.parse(program);
 	console.log(JSON.stringify(ast, null, 2));
 }
