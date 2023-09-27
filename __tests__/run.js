@@ -9,6 +9,7 @@ const tests = [
 	require('./literals-test.js'),
 	require('./statement-list-test.js'),
 	require('./statement-block-test.js'),
+	require('./statement-empty-test.js'),
 ];
 
 const parser = new Parser();
