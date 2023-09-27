@@ -24,14 +24,69 @@ class Parser {
 	/**
 	 *Main entry point
 	 * Program
-	 * 	: Literal
+	 * 	: StatementList
+	 * The preogram return now a StatementList which is a List of statements
 	 */
 	Program() {
 		return {
 			type : 'Program',
-			body : this.Literal()
+			body : this.StatementList(),
 		}
 	}
+	/**
+	 * StatementList
+	 *	:Statement 
+	 *	:StatementList
+	 * A statement can contain one or many statements
+	 *
+	 */
+	
+	StatementList() {
+		const statementList = [this.Statement()];
+		while (this._lookahead != null) {
+			statementList.push(this.Statement());
+		}
+		return statementList;
+	}
+
+	/**
+	 * Statement 
+	 *	:ExpressionStatement
+	 * We only have Expression Statements for now 
+	*/
+
+	Statement() {
+		return ExressionStatement();
+	}
+
+	/**
+	 * ExpressionStatement
+	 *	:Expression ';'
+	 * An expression statement is a statement followed by a ';'
+	 * To do so , we return the current Expression (assuming the statement won't start with a ';')
+	 * and eat() the ';' which will have the effect of confirming we reach the end of new statement so we can return it 
+	 * or signal if there's another value at the place of the ';' or there's no more tokens
+	 */
+
+	ExpresssionStatement() {
+		const expression = this.Expression();
+		this._eat(';');
+		return {
+			type: 'ExpressionStatement',
+			expression,
+		};
+	}
+
+	/*
+	 * Expression
+	 *	:Literal
+	 * After we eat the ';'(skipped it), we call the Literal to return the current token,
+	 * remenber we loop until there's no more tokens, or the eat() function encounter throw an error
+	 */
+	Expression () {
+		return this.Literal();
+	}
+
 	/**
 	* Literal
 	*	:NumericLiteral

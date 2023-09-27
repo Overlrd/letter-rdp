@@ -17,9 +17,9 @@ function exec() {
 		`/**
 		* Documentation comment;
 		*/ 
-		'hello world!'
+		'hello world!';
 		// number
-		42`;
+		42;`;
 	const ast = parser.parse(program);
 	console.log(JSON.stringify(ast, null, 2));
 }
