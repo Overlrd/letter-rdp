@@ -56,7 +56,7 @@ class Parser {
 	*/
 
 	Statement() {
-		return ExressionStatement();
+		return this.ExpressionStatement();
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Parser {
 	 * or signal if there's another value at the place of the ';' or there's no more tokens
 	 */
 
-	ExpresssionStatement() {
+	ExpressionStatement() {
 		const expression = this.Expression();
 		this._eat(';');
 		return {
