@@ -10,6 +10,7 @@ const tests = [
 	require('./statement-list-test.js'),
 	require('./statement-block-test.js'),
 	require('./statement-empty-test.js'),
+	require('./math-test.js'),
 ];
 
 const parser = new Parser();
@@ -19,13 +20,7 @@ const parser = new Parser();
  */
 function exec() {
 	const program = 
-		`/**
-		* Documentation comment
-		*/ 
-		'hello world!';
-		// number
-		42;
-	`;
+		` 42 + 23 - 17;	`;
 	const ast = parser.parse(program);
 	console.log(JSON.stringify(ast, null, 2));
 }

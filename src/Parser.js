@@ -113,7 +113,27 @@ class Parser {
 	 * remenber we loop until there's no more tokens, or the eat() function encounter throw an error
 	 */
 	Expression () {
-		return this.Literal();
+		return this.AdditiveExpression();
+	}
+	/**
+	 * AdditiveExpression
+	 *	:Literal
+	 *	:AdditiveExpression ADDITIVE_OPERATOR Literal => Literal ADDITIVE_OPERATOR Literal ADDITIVE_OPERATOR Literal
+	 */
+	AdditiveExpression() {
+		let left = this.Literal();
+		while (this._lookahead.type === 'ADDITIVE_OPERATOR') {
+			const operator = this._eat('ADDITIVE_OPERATOR').value;
+			const right = this.Literal();
+
+			left = {
+				type: 'BinaryExpression',
+				operator,
+				left,
+				right,
+			};
+		}
+		return left;
 	}
 
 	/**
